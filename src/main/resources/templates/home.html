@@ -76,7 +76,7 @@
 						url: "[(@{/member/join2})]",
 						method: "post",
 						data: JSON.stringify(member),
-						contentType: "application/json",
+						contentType: "application/json; charset=UTF-8",
 						processData: false //data를 QueryString으로 표현하지 않음
 					}).done((data) => {
 						console.log(data);
@@ -119,8 +119,8 @@
 						data: {mid, mpassword}
 					}).done((data) => {
 						console.log(data);
-						sessionStorage.setItem("mid", data.mid);
-					    sessionStorage.setItem("jwt", data.jwt);
+						//sessionStorage.setItem("mid", data.mid);
+					    //sessionStorage.setItem("jwt", data.jwt);
 					});
 				}
 				
@@ -135,8 +135,8 @@
 						processData: false //data를 QueryString으로 표현하지 않음
 					}).done((data) => {
 						console.log(data);
-						sessionStorage.setItem("mid", data.mid);
-					    sessionStorage.setItem("jwt", data.jwt);
+						//sessionStorage.setItem("mid", data.mid);
+					    //sessionStorage.setItem("jwt", data.jwt);
 					});
 				}
 			</script>

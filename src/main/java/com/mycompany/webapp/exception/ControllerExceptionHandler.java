@@ -24,5 +24,12 @@ public class ControllerExceptionHandler {
 		e.printStackTrace();
 		response.sendError(500);
 	}
+	
+	@ExceptionHandler
+	public void handleBadCredentialsException(BadCredentialsException e, 
+			HttpServletResponse response) throws IOException {
+		log.info(e.getMessage());
+		response.sendError(401);
+	}
 }
 

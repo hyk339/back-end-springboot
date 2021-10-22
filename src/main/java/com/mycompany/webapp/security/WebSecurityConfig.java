@@ -36,6 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {	
 		log.info("configure(HttpSecurity http) 실행");
 		//폼 로그인 비활성화
+		/*
+		 이거를 하지 않으면 인증이 안된상태에서 board요청이 들어오면 로그인 폼이 제공된다.
+		 client가 로그인 폼을 받을수 잇는 상황이 아니니까 우리는 지금 비활성화 시킨상태다.
+		 인증이 안되었는데 board요청을 하면 로그인 폼으로 보낼텐데
+		 우리는 ajax로 요청했기때문에 loginform을 표시할수도 없다.
+		 그래서 비활성화했다.
+		 */
 		http.formLogin().disable();
 		
 		//사이트간 요청 위조 방지 비활성화
@@ -43,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//요청 경로 권한 설정
 		http.authorizeRequests()
+			//아래 board의 요청은 인증이 되어야한다.
 			.antMatchers("/board/**").authenticated()
 			.antMatchers("/**").permitAll();
 		
@@ -84,6 +92,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		RoleHierarchyImpl roleHierarchyImpl = new RoleHierarchyImpl();
 		roleHierarchyImpl.setHierarchy("ROLE_ADMIN > ROLE_MANAGER > ROLE_USER");
 		return roleHierarchyImpl;
+	}
+	
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
 	}
 			
 }
