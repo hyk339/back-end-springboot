@@ -13,11 +13,9 @@ public class JWTUtil {
 	private static final String secretKey = "12345";
 	
 	//JWT 생성
-	public static String createToken(String mid, String authority) { //authroiy가 맞다.
+	public static String createToken(String mid, String authority) { //authority가 맞다.
 		//절대 JWT에 저장시켜서 안되는 것은 개인정보!!(비밀번호)
-		//왜 안되냐?
-		//사이트에다 가져다 붙이면 내용 다 나온다.
-		//JWT안에 비밀번호 넣으면 절대 안된다.
+
 		log.info("실행");
 		String result = null;
 		try {
