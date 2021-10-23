@@ -12,7 +12,7 @@ public class JWTUtil {
 	//비밀키(노출이 되면 안됨)
 	private static final String secretKey = "12345";
 	
-	//JWT 생성
+	//JWT 생성 - jwt를 만들기 위해서 claims에 넣을 값을 parameter로 넣어야한다.
 	public static String createToken(String mid, String authority) { //authority가 맞다.
 		//절대 JWT에 저장시켜서 안되는 것은 개인정보!!(비밀번호)
 
@@ -43,7 +43,7 @@ public class JWTUtil {
 	
 	//client에서 받은 토큰이 맞는지 검사하는 곳
 	
-	//JWT 유효성 검사
+	//JWT 유효성 검사 - 유효성 검사를 위해서 token을 파라미터로 받아야한다.
 	public static Claims validateToken(String token) {
 		log.info("실행");
 
