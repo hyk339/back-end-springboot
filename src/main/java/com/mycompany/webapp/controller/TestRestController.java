@@ -18,6 +18,7 @@ import com.mycompany.webapp.dto.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
+//@Controller+@ResponseBody와 동일한 효과
 @RestController
 @RequestMapping("/rest")
 @Slf4j
@@ -33,6 +34,7 @@ public class TestRestController {
 	      board.setMid("user");
 	      board.setBdate(new Date());
 	      return board;
+	      //알아서 return이 json으로 온다.
 	}
 	
 	@RequestMapping("getMap")
