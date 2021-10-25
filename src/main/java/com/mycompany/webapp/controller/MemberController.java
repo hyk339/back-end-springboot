@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.webapp.dto.Member;
+import com.mycompany.webapp.security.JWTUtil;
 import com.mycompany.webapp.service.MemberService;
 import com.mycompany.webapp.service.MemberService.JoinResult;
 
@@ -78,19 +79,30 @@ public class MemberController {
 		/*
 		아래 메서드가 springsecurity가 갖고있는 db정보를 통해서 사용자가 입력한 아이디와 패스워드를 검사해서
 		성공적으로 id와 password가 넘어왔다면 authentication 객체를 리턴하는데
-		만약 제대로 넘어오지 않았다면 위의 badcredentialException 예외가 발생한다.
+		만약 제대로 넘어오지 않았다면 위의 BadCredentialsException 예외가 발생한다.
 		
 		위에서 authenticate메서드를 사용하기 위해서 주입받았다.
 		*/
+		//여기에서 security가 인증처리할것이다. 아이디와 패스워드를 확인한다. 만약 인증이 성공하면
+		//authroitcation객체에 담긴다.
 		Authentication authentication = authenticationManager.authenticate(token);
 		//SecurityContextHolder는 securityContext를 갖고있는 객체다.
 		//여기서 SeucirtyContext를 환경설정할 수 있는 객체를 가져온다.
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		//결국 session에 인증정보를 저장할것이다.
+		//아래는 인증정보를 저장하는 역할을 한다.
+		//session저장을 막기위해 securiyconfig로 가보자.
 		securityContext.setAuthentication(authentication);
+		
 		//응답 내용
+		//authority 정보를 어떻게 얻느냐?
+		//우리는 현재 member 하나당 mrole이 하나니까 아래처럼 만들었다.next()로 하나만 가져오게했다.
+		String authority = authentication.getAuthorities().iterator().next().toString();
+		log.info(authority);
 		Map<String, String> map = new HashMap<>();
 		map.put("result", "success");
+		map.put("mid",mid);
+		map.put("jwt",JWTUtil.createToken(mid, authority));
 		return map;
 	}
 	

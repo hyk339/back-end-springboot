@@ -54,6 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/board/**").authenticated()
 			.antMatchers("/**").permitAll();
 		
+		//세션 비활성화
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}	
 	
 	@Override
