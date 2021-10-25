@@ -29,8 +29,11 @@ public class JwtCheckFilter extends OncePerRequestFilter{
 		//JWT 얻기
 		String jwt = null;
 		if(request.getHeader("Authorization") != null && 
-			request.getHeader("Authorization").startsWith("Bearer")) {
+		   request.getHeader("Authorization").startsWith("Bearer")) {
 			jwt = request.getHeader("Authorization").substring(7);
+		} else if(request.getParameter("jwt") != null) {
+			//<img src="url?jwt=xxx/>
+			jwt = request.getParameter("jwt");
 		}
 		
 		log.info("jwt : "+jwt);

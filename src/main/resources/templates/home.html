@@ -414,12 +414,15 @@
 					   class="btn btn-info btn-sm mr-2">GET /board/battach/{bno}</a>
 				</div>		
 			</form>
+			
 			<img id="attachImg" class="mt-2" width="300px"/>
+			
 			<script th:inline="javascript">
 				function downloadAttach() {
 					const bno = $("#downloadAttachForm [name=bno]").val();
 					const url = "[(@{/board/battach/})]" + bno;
 					const jwt = "jwt=" + sessionStorage.getItem("jwt");
+					//<img src="http://localhost/board/battach/1345?jwt=XXX">
 					$("#attachImg").attr("src", `${url}?${jwt}`);
 				}
 			</script>
