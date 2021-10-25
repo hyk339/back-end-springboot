@@ -83,7 +83,7 @@ public class MemberController {
 		
 		위에서 authenticate메서드를 사용하기 위해서 주입받았다.
 		*/
-		//여기에서 security가 인증처리할것이다. 아이디와 패스워드를 확인한다. 만약 인증이 성공하면
+		//여기에서 security가 인증처리할것이다. DB에 있는 아이디와 패스워드를 확인한다. 만약 인증이 성공하면
 		//authroitcation객체에 담긴다.
 		Authentication authentication = authenticationManager.authenticate(token);
 		//SecurityContextHolder는 securityContext를 갖고있는 객체다.

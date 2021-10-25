@@ -152,6 +152,7 @@
 		<div>
 			<a href="javascript:authTest1()" class="btn btn-info btn-sm mr2">GET /board/test(without jwt)</a>
 			<a href="javascript:authTest2()" class="btn btn-info btn-sm">GET /board/test(with jwt)</a>
+			<a href="javascript:authTest3()" class="btn btn-info btn-sm">GET /board/test(with jwt, cors)</a>
 			<script th:inline="javascript">
 				function authTest1() {
 					$.ajax({
@@ -164,6 +165,16 @@
 				function authTest2() {
 					$.ajax({
 						url: "[(@{/board/test})]",
+						headers: {Authorization:`Bearer ${sessionStorage.getItem("jwt")}`},
+					}).done((data) => {
+						console.log(data);
+					});
+				}
+				
+				function authTest3() {
+					$.ajax({
+						/* 외부 도메인으로 접근시키기(불가) */
+						url: "http://kosa3.iptime.org/board/test",
 						headers: {Authorization:`Bearer ${sessionStorage.getItem("jwt")}`},
 					}).done((data) => {
 						console.log(data);

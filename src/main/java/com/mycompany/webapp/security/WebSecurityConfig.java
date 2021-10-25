@@ -56,6 +56,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//세션 비활성화
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+		//JwtCheckFilter 추가
+		//id와 password를 받아서 체크하는 filter전에 jwtcheckfilter가 있어야한다.
+		JwtCheckFilter jwtCheckFilter = new JwtCheckFilter();
+		http.addFilterBefore(jwtCheckFilter, UsernamePasswordAuthenticationFilter.class);
+		
+		
+		
+		/*
+		 * 어떻게 설정한 것에 대해서만 활성화 시킬지 우리가 정책을 작성해주어야한다.
+		 */
+		
+		//CORS 설정 활성화
+		http.cors();
+		
 	}	
 	
 	@Override
@@ -101,7 +116,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-			
+	
+	//springsecurity가 실행되면 이 객체를 찾을 것이다.
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration conf = new CorsConfiguration();
+		//모든 요청 사이트 허용
+		conf.addAllowedOrigin("*");
+		//모든 요청 방식 허용
+		conf.addAllowedMethod("*");
+		//모든 요청 헤드 허용
+		conf.addAllowedHeader("*");//"Authorization"라고 넣어도 된다. //"*"는 모든 header를 허용하겠다는 것이다.
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", conf);
+		return source;
+	}
 }
  
  
