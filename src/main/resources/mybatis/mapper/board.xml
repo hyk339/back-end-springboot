@@ -3,7 +3,7 @@
 
 <mapper namespace="com.mycompany.webapp.dao.BoardDao">
 	<select id="selectByPage" parameterType="pager" resultType="board">
-		SELECT rnum, bno, btitle, bdate, mid
+		SELECT rnum, bno, btitle, bdate, mid, bhitcount
 		FROM (
 		  SELECT ROWNUM as rnum, bno, btitle, bdate, mid, bhitcount
 		  FROM (
